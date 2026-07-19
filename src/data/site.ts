@@ -5,14 +5,16 @@
  */
 
 export const identity = {
-  name: "Hermann Leibnitz Klaüs Agossou",
+  name: "Hermann L. K. Agossou",
   shortName: "Hermann Agossou",
   role: "Doctorant en Sciences et Techniques",
   discipline:
     "Modèles hybrides profonds pour la modélisation des jumeaux numériques cardiaques",
   lab: "Laboratoire de Physique de la Matière Condensée (LPMC)",
-  university: "Faculté des Sciences Ben M'Sick — Université Hassan II de Casablanca",
-  partner: "École Centrale Casablanca (Centre de recherche Systèmes Complexes et Interactions)",
+  university:
+    "Faculté des Sciences Ben M'Sick — Université Hassan II de Casablanca",
+  partner:
+    "École Centrale Casablanca (Centre de recherche Systèmes Complexes et Interactions)",
   location: "Casablanca, Maroc",
   email: "hermannagossou6@gmail.com",
   photo: "/photo-hermann-agossou.jpg",
@@ -51,7 +53,10 @@ export const nav = [
   { href: "/", label: "Accueil" },
   { href: "/cv", label: "CV" },
   { href: "/publications", label: "Publications" },
-  { href: "/communications-attestations", label: "Communications & Attestations" },
+  {
+    href: "/communications-attestations",
+    label: "Communications & Attestations",
+  },
   { href: "/cours-tps", label: "Cours & TPs" },
   { href: "/parcours-contact", label: "Parcours & Contact" },
 ] as const;
