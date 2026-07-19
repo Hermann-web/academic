@@ -20,10 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Enable Pages (first run)
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Build and upload
         uses: withastro/action@v3
         with:
