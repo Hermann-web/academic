@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import EcgTrace from "../components/EcgTrace.astro";
+---
+
+<Base title="Page introuvable" description="Cette page n'existe pas ou a été déplacée.">
+  <section class="wrap nf">
+    <p class="eyebrow">Erreur 404</p>
+    <h1>Signal perdu</h1>
+    <EcgTrace class="nf-trace" />
+    <p class="measure muted">
+      Cette page n'existe pas ou a été déplacée. Reprenez depuis
+      l'<a href="/">accueil</a> ou consultez les <a href="/publications">publications</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: 4rem;
+  }
+
+  :global(.nf-trace) {
+    max-width: 380px;
+    margin-block: 1rem;
+  }
+</style>

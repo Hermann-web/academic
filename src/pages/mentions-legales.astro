@@ -1,0 +1,97 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { identity } from "../data/site";
+---
+
+<Base
+  title="Mentions légales & RGPD"
+  description="Mentions légales, gestion des données personnelles et licences du site."
+>
+  <PageHeader eyebrow="Conformité" title="Mentions légales & RGPD" />
+
+  <section class="wrap measure legal">
+    <h2>Éditeur du site</h2>
+    <p>
+      Ce site personnel est édité par {identity.name}, doctorant au
+      {identity.lab} ({identity.university}), dans le cadre du module
+      «&nbsp;Digitalisation&nbsp;» de la formation doctorale et comme vitrine académique.
+      Contact&nbsp;: <a href={`mailto:${identity.email}`} class="mono">{identity.email}</a>.
+    </p>
+
+    <h2>Hébergement</h2>
+    <p>
+      Le site est hébergé par GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. St,
+      San Francisco, CA 94107, États-Unis). Le code source du site est un site statique
+      généré avec le framework Astro.
+    </p>
+
+    <h2>Données personnelles (RGPD)</h2>
+    <ul>
+      <li>
+        <strong>Aucun cookie, aucun traceur&nbsp;:</strong> ce site est entièrement statique et
+        n'intègre ni outil d'analyse d'audience, ni publicité, ni traceur tiers.
+      </li>
+      <li>
+        <strong>Formulaire de contact&nbsp;:</strong> les messages envoyés via le formulaire
+        (Google Forms) ou par e-mail sont utilisés uniquement pour répondre à votre demande.
+        Ils ne sont ni revendus ni partagés, et sont supprimés dès qu'ils n'ont plus d'utilité.
+        Le traitement par Google Forms est soumis à la
+        <a href="https://policies.google.com/privacy?hl=fr">politique de confidentialité de Google</a>.
+      </li>
+      <li>
+        <strong>Hébergeur&nbsp;:</strong> GitHub Pages peut journaliser les adresses IP des
+        visiteurs à des fins de sécurité, conformément à la
+        <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">
+          politique de confidentialité de GitHub</a>.
+      </li>
+      <li>
+        <strong>Vos droits&nbsp;:</strong> conformément au RGPD, vous disposez d'un droit d'accès,
+        de rectification et de suppression des données vous concernant. Exercez-le en écrivant à
+        l'adresse e-mail ci-dessus.
+      </li>
+    </ul>
+
+    <h2>Licences et propriété intellectuelle</h2>
+    <ul>
+      <li>
+        Les contenus rédactionnels (textes, figures, supports de cours) sont publiés sous licence
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" rel="license">
+          Creative Commons Attribution 4.0 (CC&nbsp;BY&nbsp;4.0)</a>, sauf mention contraire.
+      </li>
+      <li>
+        Les publications scientifiques référencées restent soumises aux droits de leurs éditeurs
+        respectifs&nbsp;; les liens DOI pointent vers les versions officielles.
+      </li>
+      <li>
+        Les attestations et documents officiels sont reproduits avec l'accord de leurs émetteurs et
+        ne peuvent être réutilisés sans autorisation.
+      </li>
+      <li>
+        Le code source de ce site est disponible sur GitHub sous licence MIT.
+      </li>
+    </ul>
+
+    <h2>Responsabilité</h2>
+    <p>
+      Les informations publiées sont fournies de bonne foi et mises à jour régulièrement.
+      Malgré ce soin, une erreur peut subsister&nbsp;; signalez-la par e-mail et elle sera corrigée.
+      Les liens externes sont fournis à titre indicatif&nbsp;; leur contenu n'engage pas l'éditeur.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .legal {
+    padding-block: 1rem 0;
+  }
+
+  .legal h2 {
+    margin-top: 2rem;
+    font-size: 1.35rem;
+  }
+
+  .legal li {
+    margin-bottom: 0.6rem;
+  }
+</style>

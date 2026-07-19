@@ -1,0 +1,76 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { cours } from "../data/cours";
+---
+
+<Base
+  title="Cours & TPs"
+  description="Enseignements donnés (génie logiciel, algorithmique, coding week) et supports de cours associés."
+>
+  <PageHeader
+    eyebrow="Enseignement"
+    title="Cours & TPs"
+    lede="Enseignements assurés à l'École Centrale Casablanca dans le cadre du monitorat, et supports associés."
+  />
+
+  <section class="wrap">
+    <div class="course-grid">
+      {
+        cours.map((c) => (
+          <article class="card course">
+            <p class="eyebrow">{c.period} · {c.place}</p>
+            <h3>{c.title}</h3>
+            <p class="mono role">{c.role}</p>
+            <p class="muted">{c.description}</p>
+            {c.supports.length > 0 && (
+              <ul class="supports">
+                {c.supports.map((s) => (
+                  <li>
+                    <a href={s.href ?? `/cours/${s.file}`}>{s.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))
+      }
+    </div>
+    <p class="muted note">
+      Les attestations officielles correspondant à ces enseignements sont téléchargeables sur la page
+      <a href="/communications-attestations">Communications & Attestations</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  section.wrap {
+    padding-block: 1.6rem 0;
+  }
+
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .course h3 {
+    margin-block: 0.3rem 0.2rem;
+  }
+
+  .role {
+    color: var(--pine-deep);
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .supports {
+    margin: 0.4rem 0 0;
+    padding-left: 1.2rem;
+  }
+
+  .note {
+    margin-top: 1.6rem;
+    font-size: 0.92rem;
+  }
+</style>

@@ -1,0 +1,224 @@
+---
+import "@fontsource/fraunces/latin.css";
+import "@fontsource/source-sans-3/latin.css";
+import "@fontsource/ibm-plex-mono/latin-400.css";
+import "@fontsource/ibm-plex-mono/latin-600.css";
+import "../styles/global.css";
+import { identity, links, nav } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const current = Astro.url.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+const pageTitle =
+  current === "/" ? `${identity.shortName} — ${identity.role}` : `${title} · ${identity.shortName}`;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="author" content={identity.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="wrap header-in">
+        <a class="brand" href="/">
+          <span class="brand-name">{identity.shortName}</span>
+          <span class="brand-role mono">doctorant · jumeaux numériques cardiaques</span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={
+                      current === item.href || (item.href !== "/" && current.startsWith(item.href))
+                        ? "page"
+                        : undefined
+                    }
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-in">
+        <div>
+          <p class="mono footer-name">{identity.name}</p>
+          <p class="muted">
+            {identity.lab}<br />
+            {identity.university}
+          </p>
+        </div>
+        <div>
+          <p class="mono footer-name">Liens</p>
+          <ul class="footer-links">
+            <li><a href={links.github}>GitHub</a></li>
+            <li><a href={links.linkedin}>LinkedIn</a></li>
+            <li><a href={links.researchgate}>ResearchGate</a></li>
+            <li><a href={links.blog}>Blog technique</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono footer-name">Légal</p>
+          <p class="muted">
+            <a href="/mentions-legales">Mentions légales & RGPD</a><br />
+            Contenus sous licence
+            <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" rel="license">CC BY 4.0</a>
+          </p>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="muted mono copyright">
+          © {new Date().getFullYear()} {identity.shortName} — site construit avec Astro, hébergé sur
+          GitHub Pages.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--pine);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+  }
+
+  .skip:focus {
+    left: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .header-in {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-block: 0.8rem;
+  }
+
+  .brand {
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+
+  .brand-role {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    padding-block: 0.2rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--pine-deep);
+  }
+
+  nav a[aria-current="page"] {
+    color: var(--pine-deep);
+    font-weight: 600;
+    border-bottom-color: var(--pulse);
+  }
+
+  main {
+    min-height: 60vh;
+  }
+
+  .site-footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--line);
+    background: var(--pine-wash);
+    padding-block: 2.2rem 1.2rem;
+  }
+
+  .footer-in {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    font-size: 0.92rem;
+  }
+
+  .footer-name {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pine-deep);
+    margin: 0 0 0.4rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .copyright {
+    font-size: 0.72rem;
+    margin-top: 2rem;
+  }
+</style>

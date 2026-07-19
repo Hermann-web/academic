@@ -1,0 +1,19 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.*
+
+# private source documents (contain personal data: CIN, birth date, signatures)
+# Published assets are copied into public/ by `npm run sync`.
+docs/thesis-info.docx
+docs/*réinscription*
+docs/*Zone.Identifier
+
+# OS
+.DS_Store

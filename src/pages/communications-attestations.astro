@@ -1,0 +1,133 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { communications } from "../data/works";
+import { attestations } from "../data/attestations";
+
+const categories = [...new Set(attestations.map((a) => a.category))];
+---
+
+<Base
+  title="Communications & Attestations"
+  description="Communications scientifiques (exposés, posters) et attestations d'enseignement, d'encadrement et d'organisation, téléchargeables."
+>
+  <PageHeader
+    eyebrow="Diffusion scientifique"
+    title="Communications & Attestations"
+    lede="Exposés et posters présentés dans des rencontres scientifiques, puis les attestations officielles téléchargeables."
+  />
+
+  <section class="wrap">
+    <h2>Communications scientifiques</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Type</th>
+            <th scope="col">Événement</th>
+            <th scope="col">Lieu</th>
+            <th scope="col">Année</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            communications.map((c) => (
+              <tr>
+                <td>
+                  {c.title}
+                  {c.status === "communication soumise" && (
+                    <span class="tag pulse">soumise</span>
+                  )}
+                </td>
+                <td>{c.kind}</td>
+                <td>{c.event}</td>
+                <td>{c.place}</td>
+                <td class="mono">{c.year}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Attestations</h2>
+    <p class="muted measure">
+      Attestations délivrées dans le cadre du monitorat : enseignement, encadrement de projets
+      et participation à la vie scientifique. Chaque document est téléchargeable au format PDF.
+    </p>
+    {
+      categories.map((cat) => (
+        <div class="att-group">
+          <h3 class="eyebrow">{cat}</h3>
+          <ul class="att-list">
+            {attestations
+              .filter((a) => a.category === cat)
+              .map((a) => (
+                <li class="card att">
+                  <div>
+                    <p class="att-label">{a.label}</p>
+                    <p class="muted att-detail">{a.detail}</p>
+                  </div>
+                  <a
+                    class="btn ghost"
+                    href={`/attestations/${a.file}`}
+                    download
+                    aria-label={`Télécharger l'attestation : ${a.label}`}
+                  >
+                    PDF ↓
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+</Base>
+
+<style>
+  section.wrap {
+    padding-block: 1.6rem 0;
+  }
+
+  td .tag {
+    margin-left: 0.5rem;
+  }
+
+  .att-group {
+    margin-top: 1.6rem;
+  }
+
+  .att-list {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .att {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .att-label {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .att-detail {
+    margin: 0.2rem 0 0;
+    font-size: 0.88rem;
+  }
+
+  .att .btn {
+    flex-shrink: 0;
+  }
+</style>

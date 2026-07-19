@@ -1,0 +1,163 @@
+---
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { parseBibtex } from "../lib/bibtex";
+import { manuscripts } from "../data/works";
+import { bibExport } from "../data/site";
+
+// Zotero export parsed at build time — update docs/zotero-export/ then
+// `npm run sync` to refresh both this page and the downloadable .bib.
+const bibSource = readFileSync(
+  fileURLToPath(new URL("../../docs/zotero-export/COURSDIGIT.bib", import.meta.url)),
+  "utf8",
+);
+// Dedupe entries the Zotero export lists twice (e.g. key suffixed "a"),
+// then sort newest first.
+const seen = new Set<string>();
+const references = parseBibtex(bibSource)
+  .filter((r) => {
+    const id = `${r.title.toLowerCase()}|${r.year}`;
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  })
+  .sort((a, b) => (b.year || "0").localeCompare(a.year || "0"));
+
+const statusTag: Record<string, string> = {
+  soumis: "Soumis — en évaluation",
+  "en préparation": "En préparation",
+};
+---
+
+<Base
+  title="Publications"
+  description="Manuscrits de recherche et bibliothèque Zotero : problèmes inverses, réseaux de neurones informés par la physique, électrophysiologie cardiaque."
+>
+  <PageHeader
+    eyebrow="Recherche"
+    title="Publications"
+    lede="Mes manuscrits (publiés ou non — la science en train de se faire), puis la bibliothèque Zotero qui fonde la thèse."
+  />
+
+  <section class="wrap">
+    <h2>Manuscrits</h2>
+    <ol class="pub-list">
+      {
+        manuscripts.map((m) => (
+          <li class="card pub">
+            <div class="pub-head">
+              <span class="tag pulse">{statusTag[m.status] ?? m.status}</span>
+              <span class="mono muted">{m.year}</span>
+            </div>
+            <h3>{m.title}</h3>
+            <p class="authors">{m.authors.join(", ")}</p>
+            {m.note && <p class="muted">{m.note}</p>}
+            {m.doi && (
+              <p class="mono">
+                DOI : <a href={`https://doi.org/${m.doi}`}>{m.doi}</a>
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <div class="lib-head">
+      <h2>Bibliothèque Zotero — collection «&nbsp;COURSDIGIT&nbsp;»</h2>
+      <a class="btn ghost" href={bibExport} download>Export Zotero (.bib)</a>
+    </div>
+    <p class="muted measure">
+      {references.length} références gérées avec Zotero : électrophysiologie cardiaque
+      (FitzHugh–Nagumo, modèles monodomaines), problèmes inverses et apprentissage profond.
+    </p>
+    <ol class="ref-list">
+      {
+        references.map((r) => (
+          <li>
+            <p class="ref-title">
+              {r.url || r.doi ? (
+                <a href={r.url ?? `https://doi.org/${r.doi}`}>{r.title}</a>
+              ) : (
+                r.title
+              )}
+            </p>
+            <p class="muted ref-meta">
+              {r.authors.length > 0 && <span>{r.authors.join(", ")}. </span>}
+              {r.venue && <em>{r.venue}</em>}
+              {r.year && <span> ({r.year})</span>}
+              {r.doi && (
+                <span class="mono">
+                  {" — "}
+                  <a href={`https://doi.org/${r.doi}`}>doi:{r.doi}</a>
+                </span>
+              )}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>
+
+<style>
+  section.wrap {
+    padding-block: 1.6rem 0;
+  }
+
+  .pub-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .pub-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .pub h3 {
+    margin-block: 0.5rem 0.3rem;
+  }
+
+  .authors {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .lib-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ref-list {
+    margin: 1.2rem 0 0;
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .ref-list::marker {
+    font-family: var(--font-mono);
+  }
+
+  .ref-title {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .ref-meta {
+    margin: 0.15rem 0 0;
+    font-size: 0.9rem;
+  }
+</style>

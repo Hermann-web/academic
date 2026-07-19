@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="site-wireframe" name="Arborescence du site">
+    <mxGraphModel dx="1000" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="home" value="Accueil&#10;— photo, nom, discipline&#10;— résumé du profil&#10;— menu de navigation&#10;— axes de recherche" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E7F0EC;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="460" y="40" width="240" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cv" value="CV&#10;— PDF intégré (visionneuse)&#10;— bouton de téléchargement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="pub" value="Publications&#10;— manuscrits personnels&#10;— 10+ références Zotero&#10;— export .bib téléchargeable" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="260" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="comm" value="Communications &amp; Attestations&#10;— tableau (titre, événement, date)&#10;— attestations PDF téléchargeables" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cours" value="Cours &amp; TPs&#10;— enseignements (GL, algo, coding week)&#10;— supports intégrés / liés" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="700" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="parc" value="Parcours &amp; Contact&#10;— biographie, chronologie&#10;— LinkedIn / ResearchGate&#10;— formulaire Google Forms" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0E6E55;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="920" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="rgpd" value="Mentions légales &amp; RGPD&#10;— données personnelles&#10;— licences (CC BY 4.0)&#10;(lien en pied de page)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#FFFFFF;strokeColor=#C4462F;align=left;verticalAlign=top;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="480" y="400" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" parent="1" source="home" target="cv"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" parent="1" source="home" target="pub"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" parent="1" source="home" target="comm"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" parent="1" source="home" target="cours"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" parent="1" source="home" target="parc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;" edge="1" parent="1" source="comm" target="rgpd"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

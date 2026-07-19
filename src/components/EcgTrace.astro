@@ -1,0 +1,58 @@
+---
+/**
+ * Signature motif: a cardiac trace blending an ECG QRS complex with the
+ * action-potential plateau studied in the thesis (FitzHugh–Nagumo).
+ * Draws itself once on load; static under prefers-reduced-motion.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  class={`ecg ${className}`}
+  viewBox="0 0 600 60"
+  fill="none"
+  role="img"
+  aria-label="Tracé d'électrocardiogramme stylisé"
+  preserveAspectRatio="xMidYMid meet"
+>
+  <path
+    d="M0 40 L120 40 L132 35 L142 40 L160 40 L166 44 L174 6 L182 54 L190 40 L226 40
+       C246 40 248 22 270 22 L310 22 C332 22 334 40 354 40 L600 40"
+    stroke="var(--pulse)"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    pathLength="1000"
+  ></path>
+</svg>
+
+<style>
+  .ecg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 60px;
+  }
+
+  .ecg path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: ecg-draw 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes ecg-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ecg path {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+  }
+</style>

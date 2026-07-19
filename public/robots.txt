@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://academic.hermann-agossou.com/sitemap-index.xml

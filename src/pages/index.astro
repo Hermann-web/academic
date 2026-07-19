@@ -1,0 +1,200 @@
+---
+import Base from "../layouts/Base.astro";
+import EcgTrace from "../components/EcgTrace.astro";
+import { identity, links, cvPdf } from "../data/site";
+import { manuscripts, communications } from "../data/works";
+
+const highlights = [
+  {
+    title: "Apprentissage inverse informé par la physique",
+    text: "Réseaux convolutionnels guidés par la linéarisation de Born pour des problèmes inverses semi-linéaires (Poisson, Helmholtz, Landau-Ginzburg, Nagumo, Lorenz).",
+  },
+  {
+    title: "Électrophysiologie cardiaque",
+    text: "Estimation de paramètres autour d'états de référence sur les modèles FitzHugh–Nagumo et Aliev–Panfilov, avec observations complètes ou capteurs épars.",
+  },
+  {
+    title: "Enseignement & encadrement",
+    text: "Génie logiciel, algorithmique et data science à l'École Centrale Casablanca ; co-encadrement de projets scientifiques et d'innovation.",
+  },
+];
+
+const presented = communications.filter((c) => c.status === "présenté").length;
+---
+
+<Base
+  title="Accueil"
+  description={`${identity.name}, ${identity.role} — ${identity.discipline}.`}
+>
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-text">
+        <p class="eyebrow">{identity.role} · {identity.location}</p>
+        <h1>{identity.name}</h1>
+        <p class="hero-thesis">
+          Thèse — <em>{identity.discipline}</em>
+        </p>
+        <EcgTrace class="hero-trace" />
+        <p class="measure">{identity.summary}</p>
+        <div class="hero-actions">
+          <a class="btn" href={cvPdf} download>Télécharger le CV (PDF)</a>
+          <a class="btn ghost" href="/publications">Voir les publications</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img
+          src={identity.photo}
+          alt={`Portrait de ${identity.shortName}`}
+          width="280"
+          height="280"
+          loading="eager"
+        />
+        <figcaption class="mono muted">
+          {identity.lab}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <p class="eyebrow">Axes de recherche</p>
+    <div class="grid-3">
+      {
+        highlights.map((h) => (
+          <article class="card">
+            <h3>{h.title}</h3>
+            <p class="muted">{h.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="wrap stats">
+    <dl>
+      <div>
+        <dt class="mono">Manuscrits</dt>
+        <dd>{manuscripts.length} <span class="muted">(1 soumis, 1 en préparation)</span></dd>
+      </div>
+      <div>
+        <dt class="mono">Communications & posters</dt>
+        <dd>{presented} <span class="muted">présentés</span></dd>
+      </div>
+      <div>
+        <dt class="mono">Affiliations</dt>
+        <dd><span class="muted">FSBM · LPMC · École Centrale Casablanca</span></dd>
+      </div>
+    </dl>
+    <p>
+      Retrouvez le détail sur les pages
+      <a href="/communications-attestations">Communications & Attestations</a> et
+      <a href="/parcours-contact">Parcours & Contact</a>, ou explorez mes projets open source sur
+      <a href={links.github}>GitHub</a>.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(1200px 400px at 80% -10%, var(--pine-wash), transparent 60%),
+      var(--paper);
+  }
+
+  .hero-in {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2.5rem;
+    align-items: center;
+    padding-block: 3.2rem;
+  }
+
+  .hero-thesis {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+
+  :global(.hero-trace) {
+    max-width: 420px;
+    margin-block: 0.6rem 1rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+  }
+
+  .hero-photo {
+    margin: 0;
+    text-align: center;
+  }
+
+  .hero-photo img {
+    width: clamp(180px, 22vw, 280px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 30px rgb(14 110 85 / 0.12);
+  }
+
+  .hero-photo figcaption {
+    font-size: 0.68rem;
+    margin-top: 0.6rem;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+
+  section.wrap {
+    padding-block: 2.6rem 0;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .stats dl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.1rem;
+    margin: 0 0 1rem;
+    padding: 1.3rem 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .stats dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pine-deep);
+  }
+
+  .stats dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  .stats dd .muted {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 720px) {
+    .hero-in {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-photo {
+      order: -1;
+      text-align: left;
+    }
+  }
+</style>

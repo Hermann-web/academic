@@ -1,0 +1,176 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { identity, links, contact } from "../data/site";
+import { parcours } from "../data/parcours";
+
+const kindLabel = {
+  recherche: "Recherche",
+  formation: "Formation",
+  experience: "Expérience",
+} as const;
+---
+
+<Base
+  title="Parcours & Contact"
+  description="Biographie, parcours académique et professionnel de Hermann Agossou, et formulaire de contact."
+>
+  <PageHeader
+    eyebrow="Biographie"
+    title="Parcours & Contact"
+    lede="Du Bénin aux classes préparatoires de Tanger, de l'École Centrale Casablanca au doctorat : un parcours entre mathématiques appliquées, logiciel et recherche."
+  />
+
+  <section class="wrap">
+    <h2>Parcours</h2>
+    <ol class="timeline">
+      {
+        parcours.map((e) => (
+          <li class={`t-item t-${e.kind}`}>
+            <p class="mono t-period">{e.period}</p>
+            <div>
+              <span class="tag">{kindLabel[e.kind]}</span>
+              <h3>{e.title}</h3>
+              <p class="t-place muted">{e.place}</p>
+              <p class="t-detail">{e.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Profils</h2>
+    <ul class="profiles">
+      <li><a href={links.linkedin}>LinkedIn</a></li>
+      <li><a href={links.researchgate}>ResearchGate</a></li>
+      <li><a href={links.github}>GitHub</a></li>
+      <li><a href={links.pypi}>PyPI</a></li>
+      <li><a href={links.blog}>Blog technique</a></li>
+    </ul>
+  </section>
+
+  <section class="wrap" id="contact">
+    <h2>Contact</h2>
+    {
+      contact.googleFormEmbedUrl ? (
+        <iframe
+          class="gform"
+          src={contact.googleFormEmbedUrl}
+          title="Formulaire de contact"
+          loading="lazy"
+        >
+          Chargement du formulaire…
+        </iframe>
+      ) : (
+        <div class="card measure">
+          <p>
+            Pour toute question, collaboration de recherche ou opportunité, écrivez-moi à
+            <a href={`mailto:${identity.email}`} class="mono">{identity.email}</a> — je réponds
+            généralement sous 48&nbsp;h.
+          </p>
+          <p class="muted">
+            Vous pouvez aussi me joindre via <a href={links.linkedin}>LinkedIn</a>.
+          </p>
+        </div>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  section.wrap {
+    padding-block: 1.6rem 0;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .t-item {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 1.2rem;
+    border-left: 2px solid var(--line);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .t-item::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0.45rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pine);
+  }
+
+  .t-recherche::before {
+    background: var(--pulse);
+  }
+
+  .t-period {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .t-item h3 {
+    margin: 0.4rem 0 0.1rem;
+  }
+
+  .t-place {
+    margin: 0 0 0.3rem;
+    font-size: 0.92rem;
+  }
+
+  .t-detail {
+    margin: 0;
+  }
+
+  .profiles {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .profiles a {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    background: var(--paper-raised);
+  }
+
+  .profiles a:hover {
+    border-color: var(--pine);
+    background: var(--pine-wash);
+  }
+
+  .gform {
+    width: 100%;
+    max-width: 720px;
+    height: 900px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-raised);
+  }
+
+  @media (max-width: 640px) {
+    .t-item {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>

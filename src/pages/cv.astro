@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { cvPdf } from "../data/site";
+---
+
+<Base
+  title="CV"
+  description="Curriculum vitæ de Hermann Agossou : recherche, enseignement, expériences en ingénierie logicielle et data science."
+>
+  <PageHeader
+    eyebrow="Curriculum vitæ"
+    title="CV"
+    lede="Version académique (recherche & enseignement), générée depuis LaTeX. Le PDF fait foi."
+  />
+
+  <section class="wrap">
+    <div class="cv-actions">
+      <a class="btn" href={cvPdf} download="CV-Hermann-Agossou.pdf">Télécharger le PDF</a>
+      <a class="btn ghost" href={cvPdf} target="_blank" rel="noopener">Ouvrir dans un onglet</a>
+    </div>
+
+    <object class="cv-viewer" data={cvPdf} type="application/pdf" aria-label="CV au format PDF">
+      <p class="card">
+        Votre navigateur n'affiche pas les PDF intégrés.
+        <a href={cvPdf} download>Téléchargez le CV</a> pour le consulter.
+      </p>
+    </object>
+  </section>
+</Base>
+
+<style>
+  .cv-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-block: 1rem 1.4rem;
+  }
+
+  .cv-viewer {
+    width: 100%;
+    height: min(80vh, 1100px);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-raised);
+  }
+</style>
